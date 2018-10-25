@@ -238,6 +238,22 @@ def inquire_ip2domain(cities,times,ip,hql_filename='tmp_dns_hql',result_filename
             write_hql(hql, hql_filename)
             exec_hive(hql_filename, result_filename, op='a')
             
+def inquire_domain2ip(cities,times,domain,hql_filename='tmp_dns_hql',result_filename='ip.csv'):
+    '''collect domain name form dns table'''
+    cmd_del = 'rm %s' % result_filename
+    os.system(cmd_del)
+    
+    #paramenter for this inquirey
+    sourcetable = 'mlte_s1u_dns'
+    sel_content = 'cityname, slicetime,apn,request_query_domain,query_result_ip'
+    other_cond = 'request_query_domain like "%s"' % domain 
+ 
+    for cityname in cities:
+        for slicetime in times:
+            cond = constuct_con(slicetime, cityname, other_cond)
+            hql = hql_selecttable(sourcetable, sel_content, cond)
+            write_hql(hql, hql_filename)
+            exec_hive(hql_filename, result_filename, op='a')
             
 allcities =['GZ','SZ','DG','FS','QY','SG','ST','CZ','JY','HZ','SW','HY','YF','MZ','JM','ZS','ZH','ZQ','YJ','MM','ZJ']
 cities  = ['QY','MM']
@@ -276,7 +292,20 @@ result_filename = 'apptype_speeed.csv'
 cities  = ['MM']
 times = ['2018102322']
 hql_filename = 'select_table.hql'
-result_filename = 'ip2dns.csv'
+result_filename = 'dnsxdr.csv'
+#collect_domainname(cities,times,hql_filename,result_filename)
+
+cities  = ['MM']
+times = ['2018102322']
+hql_filename = 'select_table.hql'
+result_filename = 'dnsxdr.csv'
 #collect_domainname(cities,times,hql_filename,result_filename)
 ip = '106.75.26.39'
 inquire_ip2domain(cities,times,ip)
+
+cities  = ['MM']
+times = ['2018102322']
+hql_filename = 'select_table.hql'
+result_filename = 'dnsxdr.csv'
+domain = 'www.baidu.com'
+inquire_domain2ip(cities,times,domain)
