@@ -1,4 +1,4 @@
-import hql
+import pyoverhive as poh
 
 allcities =['GZ','SZ','DG','FS','QY','SG','ST','CZ','JY','HZ','SW','HY','YF','MZ','JM','ZS','ZH','ZQ','YJ','MM','ZJ']
 cities  = ['QY','MM']
@@ -46,12 +46,12 @@ hql_filename = 'select_table.hql'
 result_filename = 'dnsxdr.csv'
 #collect_domainname(cities,times,hql_filename,result_filename)
 ip = '106.75.26.39'
-inquire_ip2domain(cities,times,ip)
+poh.inquire_ip2domain(cities,times,ip)
 
 cities  = ['MM']
 times = ['2018102322']
 hql_filename = 'select_table.hql'
 result_filename = 'dnsxdr.csv'
 domain = 'www.baidu.com'
-inquire_domain2ip(cities,times,domain)
+poh.inquire_domain2ip(cities,times,domain)
 
