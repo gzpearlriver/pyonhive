@@ -62,3 +62,10 @@ result_filename = 'ip_speed_app_host.csv'
 ip_dec = ip_dot2dec('223.111.15.202')
 analyze_speed_ip_host(cities,times,ip_dec)
 
+cities  = ['MM']
+times = ['2018102822']
+hql_filename = 'httpxdr.hql'
+result_filename = 'httpxrd_result.csv'
+ip_dec = ip_dot2dec('223.111.15.202')
+other_cond = " app_server_ip_ipv4 = '%s'" % ip_dec
+#collect_http_xdr(cities,times,other_cond,hql_filename,result_filename,xdrlimit=10000)
