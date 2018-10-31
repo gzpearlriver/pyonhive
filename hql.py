@@ -158,6 +158,7 @@ def analyze_apptype_uri(cities,times,apptype,appsubtype,hql_filename,result_file
 
 
 def analyze_speed_apptype_cell(cities,times,apptype,appsubtype,hql_filename='tmp_hql',result_filename='tmp_result',percentile='n'):
+    '''calculate speed every cell for specific app type'''
     cmd_del = 'rm %s' % result_filename
     os.system(cmd_del)
     
@@ -228,7 +229,7 @@ def analyze_speed_apptype(cities,times,apptype=0,appsubtype=0,hql_filename='tmp_
 
     
 def analyze_speed_ip_host(cities,times,ip_dec,apptype=0,appsubtype=0,hql_filename='tmp_hql',result_filename='tmp_result',percentile='n'):
-    #specify the ip, collect speed of all the apptype and host 
+    #specify the ip, caculate speed of all the apptype and host 
     cmd_del = 'rm %s' % result_filename
     os.system(cmd_del)
     
@@ -269,7 +270,7 @@ def analyze_speed_ip_host(cities,times,ip_dec,apptype=0,appsubtype=0,hql_filenam
 
             
 def inquire_ip2domain(cities,times,ip,hql_filename='tmp_dns_hql',result_filename='domainname.csv'):
-    '''collect domain name form dns table'''
+    '''inquire domain name for specific ip'''
     cmd_del = 'rm %s' % result_filename
     os.system(cmd_del)
     
@@ -286,7 +287,7 @@ def inquire_ip2domain(cities,times,ip,hql_filename='tmp_dns_hql',result_filename
             exec_hive(hql_filename, result_filename, op='a')
             
 def inquire_domain2ip(cities,times,domain,hql_filename='tmp_dns_hql',result_filename='ip.csv'):
-    '''collect domain name form dns table'''
+    '''inquire ip for specific domain name'''
     cmd_del = 'rm %s' % result_filename
     os.system(cmd_del)
     
@@ -320,8 +321,8 @@ def collect_domainname(cities,times,hql_filename='tmp_dns_hql',result_filename='
             exec_hive(hql_filename, result_filename, op='a')
 
 
-def collect_http_xdr(cities,times,other_cond='',hql_filename='httpxdr_hql',result_filename='httpxrd_result',xdrlimit=10000):
-    #specify the ip, collect speed of all the apptype and host 
+def collect_http_xdr(cities,times,other_cond='',content='*',hql_filename='httpxdr_hql',result_filename='httpxrd_result',xdrlimit=10000):
+    #collect http xdr 
     cmd_del = 'rm %s' % result_filename
     os.system(cmd_del)
    
@@ -332,6 +333,6 @@ def collect_http_xdr(cities,times,other_cond='',hql_filename='httpxdr_hql',resul
     for cityname in cities:
         for slicetime in times:
             cond = constuct_con(slicetime, cityname, other_cond)
-            hql = hql_selecttable(sourcetable, content='*', cond=cond, groupby='', orderby='', limit=xdrlimit)
+            hql = hql_selecttable(sourcetable, content=content, cond=cond, groupby='', orderby='', limit=xdrlimit)
             write_hql(hql, hql_filename)
             exec_hive(hql_filename, result_filename, op='a')
