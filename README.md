@@ -1,11 +1,11 @@
 
 
-#背景
+# 背景
 目前LTE的统计来源包括SOC和HIVE。其中SOC是面对全网的固定报表，受计算力限制，不提供Host、IP等小维度的统计。而HIVE可以实现多维度统计，但由于HIVE没有存储过程，无法实现程序化，人力投入成本大；HIVE无法输出图形和抽样数据，灵活度仍有欠缺。
 
 PYONHIVE的工作方式为通过HIVE指令（BEELINE-CLI）输出指定范围的XDR到接口机，在接口机运行PYTHON/PANDAS实现多维聚类运算，并输出数据结果和质差样本XDR抽样，全程一键自动实现。
 
-#特点
+# 特点
 
 0. 一键输出
 当然，你还是需要历尽千辛万苦登陆共享层的接口机，做报告的话还要千辛万苦SFTP文件到本地电脑。
@@ -39,7 +39,7 @@ Factor值反映加权偏离度，TopN即为质差组合。
 只针对下载流量大于500Kbyte而且响应时延大于0的XDR，分析维度包括：http方法、地市、host、ip
 
 
-#使用方法
+# 使用方法
 
 修改http_analysis.py文件的内容
 
@@ -75,7 +75,7 @@ http_analysis(5,2,result_dir,-10,100)
 python http_analysis.py
 ```
 
-#输出结果
+# 输出结果
 
 ### http响应成功率
 成功率的Factor表示本切片距离目标值贡献的差异程度，最大负值为最差切片。
@@ -95,7 +95,7 @@ python http_analysis.py
 - rate_by_ip_method.csv
 按Http方法和ip维度聚类统计响应成功率
 
-###http响应时延
+### http响应时延
 响应时延的Factor表示本切片距离总体平均值贡献的差异程度，最大正值为最差切片。
 
 - resp_time_by_method.csv
@@ -111,7 +111,7 @@ python http_analysis.py
 按Http方法和ip维度聚类统计响应成功率
 
 
-###http下载速率
+### http下载速率
 响应时延的Factor表示本切片距离总体平均值贡献的差异程度，最大正值为最差切片。
 
 - speed_by_method.csv
@@ -129,7 +129,7 @@ python http_analysis.py
 - speed_by_host_ip_method.csv
 按Http方法、host和ip维度聚类统计下载速率，**并打开采样，采样值为100行，Factor阈值为-10，**采样文件名为speed_by_host_ip_method_sample1.csv
 
-#后续
+# 后续
 - 考虑增加图形输出
 - 考虑增加信令面指标
 - 欢迎试用、反馈意见和提供建议
