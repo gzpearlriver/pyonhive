@@ -13,8 +13,8 @@ cities  = ['FS','GZ']
 times = ['20181201222']
 
 home_dir ='/myhome/xingneng_exam2017_001/'
-result_dir ='/myhome/xingneng_exam2017_001/music/'
-http_analysis(6,1,cities,times,result_dir,speed_factor_below=-10,sample_num=100)
+result_dir ='/myhome/xingneng_exam2017_001/video/'
+http_analysis(5,3,cities,times,result_dir,sample_num=100,resp_time_factor_above=5,speed_factor_below=-10)
 #app_type 大类业务
 #app_sub_type 小类业务
 #result_dir 输出目录
